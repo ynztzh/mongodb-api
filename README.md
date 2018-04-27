@@ -1,7 +1,7 @@
-# mongodb-api
+# Mongodb-api
 
 #### 项目介绍
-mongodb-api 3.6.3 异步客户端接口实现，maven依赖包如下：
+mongodb-api 3.6.3 异步客户端接口实现，实现了基于回调的数据接口，通过对常用Mongodb-Client常用接口封装，隐藏调用细节，大大简化了数据库开发的流程，开发者只需要关注具体的业务代码，当然为了框架的灵活性，部分调用参数需要用户自己学习Mongodb相关的Api文档，例如，聚合参数，过滤参数，索引参数，该代码仅依赖Mongodb-driver，后续有需要集成Spring的同学可以修改为依赖注入的版本，具体依赖包如下：
 ```
 <dependency>
     <groupId>org.mongodb</groupId>
