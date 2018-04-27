@@ -1,7 +1,7 @@
 # mongodb-api
 
 #### 项目介绍
-mongodb-api 3.6.3 异步客户端接口实现
+mongodb-api 3.6.3 异步客户端接口实现，maven依赖包如下：
 ```
 <dependency>
     <groupId>org.mongodb</groupId>
@@ -73,7 +73,10 @@ AbstractCallback<Void> callback = new AbstractCallback<Void>() {
 			
 };
 		
-handler.add(callback, new DBCP().setDatabase("xtsj").setCollection("user"), new Person().setId(200).setName("张三").setPassword("123456"));
+handler.add(callback, 
+     new DBCP().setDatabase("xtsj").setCollection("user"),
+     new Person().setId(200).setName("张三").setPassword("123456")
+);
 		
 callback.sync();
 ```
@@ -81,6 +84,7 @@ callback.sync();
 
 #### 调用说明
 
-过滤器请关注Filters，聚合查询请关注Aggregates，索引创建请关注Indexes，这三个类提供了一系列好用的静态方法，方便大家构造查询参数
+过滤器请关注Filters，聚合查询请关注Aggregates，索引创建请关注Indexes，这三个类提供了一系列好用的静态方法，方便大家构造查询参数，这些构造类由Mongodb客户端提供，具体使用请参照对应的文档：
 
+http://mongodb.github.io/mongo-java-driver/3.6/driver-async/
 
