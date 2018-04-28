@@ -2,7 +2,6 @@ package com.lifory.mongo.db.callback;
 
 import com.lifory.mongo.db.common.Flag;
 
-@SuppressWarnings("unchecked")
 public abstract class AbstractCallback<T> implements Callback<T> {
 	
 	private Flag compateFlag = new Flag();
@@ -35,9 +34,9 @@ public abstract class AbstractCallback<T> implements Callback<T> {
 	public abstract void failure(Throwable e);
 
 	@Override
-	public synchronized void onResponse(Object response) {
+	public synchronized void onResponse(T response) {
 		try {
-			successful((T)response);
+			successful(response);
 			compateFlag.setStat(true);
 			successFlag.setStat(true);
 		} catch (Exception k) {

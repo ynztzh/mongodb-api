@@ -30,7 +30,7 @@ public class App {
 
 			@Override
 			public void successful(Void response) {
-				
+				System.out.println(response);
 			}
 
 			@Override
@@ -40,7 +40,7 @@ public class App {
 			
 		};
 		
-		handler.add(callback, new DBCP().setDatabase("xtsj").setCollection("user"), new Person().setId(200).setName("张三").setPassword("123456"));
+		handler.add(callback, new DBCP().setDatabase("xtsj").setCollection("user"), new Person().setId(400).setName("张三").setPassword("123456"));
 		
 		callback.sync();
 	}

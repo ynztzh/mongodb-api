@@ -4,7 +4,7 @@ public interface Callback<T> {
 	/**
 	 * 成功回调
 	 */
-	public void onResponse(Object response);
+	public void onResponse(T response);
 	/**
 	 * 失败回调
 	 */
