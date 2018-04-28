@@ -1,6 +1,6 @@
 package com.lifory.mongo.db.callback;
 
-public interface Callback {
+public interface Callback<T> {
 	/**
 	 * 成功回调
 	 */

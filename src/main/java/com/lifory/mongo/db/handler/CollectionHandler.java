@@ -12,14 +12,14 @@ public abstract class CollectionHandler extends AbstractHandler<Object> {
 	 * @param callback
 	 * @param dbcp
 	 */
-	public abstract void create(Callback callback,DBCP dbcp);
+	public abstract void create(Callback<Void> callback,DBCP dbcp);
 	
 	/**
 	 * 删除集合集合
 	 * @param callback
 	 * @param name
 	 */
-	public abstract void delete(Callback callback,DBCP dbcp);
+	public abstract void delete(Callback<Void> callback,DBCP dbcp);
 	
 	/**
 	 * 创建集合索引
@@ -27,7 +27,7 @@ public abstract class CollectionHandler extends AbstractHandler<Object> {
 	 * @param dbcp
 	 * @param index (Indexes) http://www.runoob.com/mongodb/mongodb-indexing.html
 	 */
-	public abstract void createIndex(Callback callback,DBCP dbcp,Bson index);
+	public abstract void createIndex(Callback<String> callback,DBCP dbcp,Bson index);
 	
 	/**
 	 * 删除集合索引
@@ -35,5 +35,5 @@ public abstract class CollectionHandler extends AbstractHandler<Object> {
 	 * @param dbcp
 	 * @param index (Indexes) http://www.runoob.com/mongodb/mongodb-indexing.html
 	 */
-	public abstract void deleteIndex(Callback callback,DBCP dbcp,Bson index);
+	public abstract void deleteIndex(Callback<Void> callback,DBCP dbcp,Bson index);
 }

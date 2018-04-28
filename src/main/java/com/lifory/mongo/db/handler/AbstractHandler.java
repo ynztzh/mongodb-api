@@ -101,9 +101,10 @@ public abstract class AbstractHandler<T> implements Closable {
 	 * @param result
 	 * @param t
 	 */
-	protected void callback(Callback callback, Object result, Throwable t) {
+	@SuppressWarnings("unchecked")
+	protected <R> void callback(Callback<R> callback, Object result, Throwable t) {
 		if (Objects.isNull(t)) {
-			callback.onResponse(result);
+			callback.onResponse((R)result);
 		} else {
 			callback.onFailure(t);
 		}

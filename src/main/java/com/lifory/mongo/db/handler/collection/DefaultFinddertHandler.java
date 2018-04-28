@@ -26,7 +26,7 @@ import com.mongodb.client.model.changestream.ChangeStreamDocument;
 public abstract class DefaultFinddertHandler<T> extends FindderHandler<T> {
 	
 	@Override
-	public void find(Callback callback, DBCP dbcp, Bson filter, Pageable pageable) {
+	public void find(Callback<List<T>> callback, DBCP dbcp, Bson filter, Pageable pageable) {
 		
 		if(Objects.isNull(pageable)) {
 			throw new IllegalArgumentException("非法参数，请传入分页对象");
@@ -50,7 +50,7 @@ public abstract class DefaultFinddertHandler<T> extends FindderHandler<T> {
 	}
 	
 	//打包数据
-	private void packages(Callback callback, FindIterable<T> iterable) {
+	private void packages(Callback<List<T>> callback, FindIterable<T> iterable) {
 		List<T> datas = new ArrayList<>();
 		iterable.forEach(new Block<T>() {
 
@@ -70,7 +70,7 @@ public abstract class DefaultFinddertHandler<T> extends FindderHandler<T> {
 	}
 
 	@Override
-	public void get(Callback callback, DBCP dbcp, Bson filter) {
+	public void get(Callback<T> callback, DBCP dbcp, Bson filter) {
 		MongoCollection<T> collection = getTCollection(dbcp);
 		FindIterable<T> find = collection.find(filter);
 		
@@ -118,7 +118,7 @@ public abstract class DefaultFinddertHandler<T> extends FindderHandler<T> {
 	}
 	
 	@Override
-	public void count(Callback callback, DBCP dbcp,Bson filter) {
+	public void count(Callback<Long> callback, DBCP dbcp,Bson filter) {
 		MongoCollection<T> collection = getTCollection(dbcp);
 		
 		if(Objects.isNull(filter)) {
@@ -144,7 +144,7 @@ public abstract class DefaultFinddertHandler<T> extends FindderHandler<T> {
 	}
 
 	@Override
-	public void aggregration(Callback callback, DBCP dbcp, Bson ...pipeline) {
+	public void aggregration(Callback<List<T>> callback, DBCP dbcp, Bson ...pipeline) {
 		
 		MongoCollection<T> collection = getTCollection(dbcp);
 		AggregateIterable<T> aggregate = collection.aggregate(Arrays.asList(pipeline));
@@ -169,7 +169,7 @@ public abstract class DefaultFinddertHandler<T> extends FindderHandler<T> {
 	}
 	
 	@Override
-	public <R> void aggregration(Callback callback, DBCP dbcp, Class<R> clz, Bson... pipeline) {
+	public <R> void aggregration(Callback<List<R>> callback, DBCP dbcp, Class<R> clz, Bson... pipeline) {
 		MongoCollection<T> collection = getTCollection(dbcp);
 		AggregateIterable<R> aggregate = collection.aggregate(Arrays.asList(pipeline),clz);
 		aggregate.allowDiskUse(true);
@@ -193,7 +193,7 @@ public abstract class DefaultFinddertHandler<T> extends FindderHandler<T> {
 	}
 
 	@Override
-	public <R> void distinct(Callback callback, DBCP dbcp, Bson filter, String field, Class<R> clz) {
+	public <R> void distinct(Callback<List<R>> callback, DBCP dbcp, Bson filter, String field, Class<R> clz) {
 		MongoCollection<T> collection = getTCollection(dbcp);
 		DistinctIterable<R> distinct = collection.distinct(field, filter, clz);
 		
@@ -213,7 +213,7 @@ public abstract class DefaultFinddertHandler<T> extends FindderHandler<T> {
 	}
 	
 	@Override
-	public void watch(Callback callback, DBCP dbcp) {
+	public void watch(Callback<ChangeStreamDocument<T>> callback, DBCP dbcp) {
 		MongoCollection<T> collection = getTCollection(dbcp);
 		ChangeStreamIterable<T> watch = collection.watch();
 		

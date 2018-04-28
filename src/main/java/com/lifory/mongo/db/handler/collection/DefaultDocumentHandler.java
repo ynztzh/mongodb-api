@@ -17,7 +17,7 @@ import com.mongodb.client.result.UpdateResult;
 public abstract class DefaultDocumentHandler<T> extends DocumentHandler<T> {
 	
 	@Override
-	public void add(Callback callback, DBCP dbcp, T ...ts) {
+	public void add(Callback<Void> callback, DBCP dbcp, T ...ts) {
 		
 		if(ts.length <= 0) {
 			throw new IllegalArgumentException("缺失参数，请传入需要保存的文档");
@@ -36,7 +36,7 @@ public abstract class DefaultDocumentHandler<T> extends DocumentHandler<T> {
 	}
 
 	@Override
-	public void delete(Callback callback, DBCP dbcp, Bson filter) {
+	public void delete(Callback<DeleteResult> callback, DBCP dbcp, Bson filter) {
 		MongoCollection<T> collection = getTCollection(dbcp);
 		collection.deleteMany(filter, new SingleResultCallback<DeleteResult>() {
 
@@ -50,7 +50,7 @@ public abstract class DefaultDocumentHandler<T> extends DocumentHandler<T> {
 	}
 	
 	@Override
-	public void deleteAndGet(Callback callback, DBCP dbcp, Bson filter) {
+	public void deleteAndGet(Callback<T> callback, DBCP dbcp, Bson filter) {
 		MongoCollection<T> collection = getTCollection(dbcp);
 		collection.findOneAndDelete(filter,new SingleResultCallback<T>() {
 
@@ -63,7 +63,7 @@ public abstract class DefaultDocumentHandler<T> extends DocumentHandler<T> {
 	}
 
 	@Override
-	public void replace(Callback callback, DBCP dbcp, Bson filter, T t) {
+	public void replace(Callback<UpdateResult> callback, DBCP dbcp, Bson filter, T t) {
 		MongoCollection<T> collection = getTCollection(dbcp);
 		collection.replaceOne(filter, t, new SingleResultCallback<UpdateResult>() {
 
@@ -77,7 +77,7 @@ public abstract class DefaultDocumentHandler<T> extends DocumentHandler<T> {
 	}
 
 	@Override
-	public void update(Callback callback, DBCP dbcp, Bson filter, Map<String,?> update) {
+	public void update(Callback<UpdateResult> callback, DBCP dbcp, Bson filter, Map<String,?> update) {
 		MongoCollection<T> collection = getTCollection(dbcp);
 		
 		collection.updateMany(filter, getBson(update), new SingleResultCallback<UpdateResult>() {

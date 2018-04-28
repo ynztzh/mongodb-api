@@ -6,6 +6,8 @@ import org.bson.conversions.Bson;
 
 import com.lifory.mongo.db.callback.Callback;
 import com.lifory.mongo.db.common.DBCP;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 
 /**
  * 文档操作接口
@@ -19,7 +21,7 @@ public abstract class DocumentHandler<T> extends AbstractHandler<T> {
 	 * @param dbcp
 	 * @param docs
 	 */
-	public abstract void add(Callback callback,DBCP dbcp,T ...ts);
+	public abstract void add(Callback<Void> callback,DBCP dbcp,T ...ts);
 	
 	/**
 	 * 删除文档
@@ -27,7 +29,7 @@ public abstract class DocumentHandler<T> extends AbstractHandler<T> {
 	 * @param dbcp
 	 * @param filter
 	 */
-	public abstract void delete(Callback callback,DBCP dbcp,Bson filter);
+	public abstract void delete(Callback<DeleteResult> callback,DBCP dbcp,Bson filter);
 	
 	/**
 	 * 删除文档
@@ -36,7 +38,7 @@ public abstract class DocumentHandler<T> extends AbstractHandler<T> {
 	 * @param filter
 	 * @param t
 	 */
-	public abstract void deleteAndGet(Callback callback,DBCP dbcp,Bson filter);
+	public abstract void deleteAndGet(Callback<T> callback,DBCP dbcp,Bson filter);
 	
 	/**
 	 * 替换文档
@@ -45,7 +47,7 @@ public abstract class DocumentHandler<T> extends AbstractHandler<T> {
 	 * @param filter
 	 * @param t
 	 */
-	public abstract void replace(Callback callback,DBCP dbcp,Bson filter,T t);
+	public abstract void replace(Callback<UpdateResult> callback,DBCP dbcp,Bson filter,T t);
 	
 	/**
 	 * 更新文档
@@ -54,5 +56,5 @@ public abstract class DocumentHandler<T> extends AbstractHandler<T> {
 	 * @param filter
 	 * @param update
 	 */
-	public abstract void update(Callback callback,DBCP dbcp,Bson filter, Map<String,?> update);
+	public abstract void update(Callback<UpdateResult> callback,DBCP dbcp,Bson filter, Map<String,?> update);
 }

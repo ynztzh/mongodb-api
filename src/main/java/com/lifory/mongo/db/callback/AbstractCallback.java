@@ -3,7 +3,7 @@ package com.lifory.mongo.db.callback;
 import com.lifory.mongo.db.common.Flag;
 
 @SuppressWarnings("unchecked")
-public abstract class AbstractCallback<T> implements Callback {
+public abstract class AbstractCallback<T> implements Callback<T> {
 	
 	private Flag compateFlag = new Flag();
 	private Flag successFlag = new Flag();
